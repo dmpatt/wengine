@@ -1,4 +1,4 @@
-package main.org.brandondave.worldengine;
+package org.brandondave.worldengine;
 public class Main 
 {
 	public static void main(String [ ] args)
