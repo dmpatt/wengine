@@ -7,7 +7,8 @@ import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
 import ch.qos.logback.core.util.StatusPrinter;
 
-import org.brandondave.worldengine.server.config.ExampleServiceConfiguration;
+import org.brandondave.worldengine.server.config.ServerConfiguration;
+import org.brandondave.worldengine.server.resources.BaseResource;
 
 import io.dropwizard.setup.Environment;
 import io.dropwizard.Application;
@@ -19,7 +20,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Entry point for server.
  */
-public class App extends Application<ExampleServiceConfiguration>
+public class App extends Application<ServerConfiguration>
 {
 	public static void main(String[] args) throws Exception
     {
@@ -27,18 +28,18 @@ public class App extends Application<ExampleServiceConfiguration>
     }
 	
     @Override
-    public void initialize(Bootstrap<ExampleServiceConfiguration> bootstrap)
+    public void initialize(Bootstrap<ServerConfiguration> bootstrap)
     {
        //nothing yet
     }
     
     @Override
     public String getName() {
-        return "shelob";
+        return "worldengine";
     }
 	
     @Override
-    public void run(ExampleServiceConfiguration conf, Environment env) throws Exception
+    public void run(ServerConfiguration conf, Environment env) throws Exception
     {
     	// set logback settings according to logback configuration XML
     	// assume SLF4J is bound to logback in the current environment
@@ -63,6 +64,7 @@ public class App extends Application<ExampleServiceConfiguration>
         //env.lifecycle().manage(MongoDbController.MONGO);
         
         //add resource classes here
+        env.jersey().register(new BaseResource(conf.getTemplate(), conf.getDefaultName()));
         //env.jersey().register(new BridgeInvoke());
         //env.jersey().register(new ErrorCode());
         //env.jersey().register(new Method());
