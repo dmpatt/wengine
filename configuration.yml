@@ -1,0 +1,38 @@
+messages:
+    hello: Hello World!
+    practice: Hello! You've reached the practice message page!
+    logbackXmlLocation: ./logback.xml
+    primaryPort: 8080
+    mongoURI: localhost
+    mongoPort: 27017
+
+        
+
+# logging settings
+logging:
+
+    # default level of all loggers -- can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
+    level: INFO
+
+    appenders:
+    # settings for logging to STDOUT
+    -   type: console
+        threshold: WARN
+        target: stdout
+
+    # settings for logging to a file(s)
+    -   type: file
+        threshold: ALL
+        currentLogFilename: ./logs/server.log
+        archive: true
+
+        # When the log file rotates, the archived log will be renamed to this and gzipped. The
+        # %d is replaced with the previous day (yyyy-MM-dd). Custom rolling windows can be created
+        # by passing a SimpleDateFormat-compatible format as an argument: "%d{yyyy-MM-dd-hh}".
+        archivedLogFilenamePattern: ./logs/server-%d.log.gz
+
+        # The number of archived files to keep.
+        archivedFileCount: 5
+
+        # The timezone used to format dates
+        timeZone: UTC
