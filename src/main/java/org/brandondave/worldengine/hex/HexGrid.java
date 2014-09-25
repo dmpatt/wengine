@@ -7,7 +7,8 @@ import com.google.common.collect.ImmutableTable;
 import com.google.common.collect.Table.Cell;
 
 
-public class HexGrid {
+public enum HexGrid {
+	GRID;
 	public static enum Direction
 	{
 		Up, //up
@@ -17,8 +18,8 @@ public class HexGrid {
 		Dol, //down left
 		Lup, //left up
 	}
-	private ImmutableTable<Integer,Integer, GridNode2d> grid;
-	HexGrid(int size)
+	private volatile ImmutableTable<Integer,Integer, GridNode2d> grid;
+	public void init(int size)
 	{
 		ImmutableTable.Builder<Integer, Integer, GridNode2d> builder = 
 				new ImmutableTable.Builder<Integer, Integer, GridNode2d>() ;
@@ -27,6 +28,11 @@ public class HexGrid {
 				builder.put(i, j, new GridNode2d(i, j));
 		
 		grid = builder.build();
+	}
+	
+	GridNode2d getNode(ILayerNode n)
+	{
+		return n.getGridNode();
 	}
 	
 	GridNode2d getNode(Integer q, Integer r)
