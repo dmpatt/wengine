@@ -1,5 +1,5 @@
 package org.brandondave.worldengine.hex;
 
-public class Hex {
+public enum Layer {
 
 }
